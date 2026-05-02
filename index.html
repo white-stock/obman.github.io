@@ -1,0 +1,775 @@
+﻿
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>obman.bet</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+    
+    <style>
+        
+        body {
+            background-color: #050505;
+            color: #F4C430;
+            font-family: 'Russo One', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        
+        .header {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px 20px;
+            position: relative;
+            width: 100%;
+            box-sizing: border-box;
+            gap: 15px;
+        }
+
+        
+        .top-left {
+            position: absolute;
+            left: 40px;
+            top: 40px;
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0.8;
+            text-shadow: 0 0 8px rgba(244, 196, 48, 0.4);
+        }
+
+        
+        .main-title {
+            font-size: 10vw;
+            font-weight: 900;
+            margin: 0;
+            text-transform: lowercase;
+            line-height: 1;
+            text-shadow: 
+                0 0 15px rgba(244, 196, 48, 0.4),
+                0 0 30px rgba(244, 196, 48, 0.2);
+            cursor: default;
+            text-align: center;
+        }
+
+        
+        .search-container {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 20px;
+            font-family: 'Russo One', sans-serif;
+            font-size: 1rem;
+            color: #F4C430;
+            background-color: #0a0a0a;
+            border: 2px solid #F4C430;
+            border-radius: 5px;
+            outline: none;
+            text-align: center;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(244, 196, 48, 0.1);
+        }
+
+        
+        .search-input::placeholder {
+            color: #F4C430;
+            opacity: 0.5;
+        }
+
+        .search-input:focus {
+            border-color: #fff;
+            box-shadow: 
+                0 0 15px rgba(244, 196, 48, 0.5),
+                0 0 30px rgba(244, 196, 48, 0.2);
+        }
+
+        
+        .top-right {
+            position: absolute;
+            right: 40px;
+            top: 40px;
+        }
+
+        .author-btn {
+            background: transparent;
+            color: #F4C430;
+            border: 2px solid #F4C430;
+            padding: 15px 30px;
+            font-family: 'Russo One', sans-serif;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 5px rgba(244, 196, 48, 0.3);
+            box-shadow: 0 0 10px rgba(244, 196, 48, 0.1);
+        }
+
+        .author-btn:hover {
+            background: #F4C430;
+            color: #050505;
+            box-shadow: 0 0 25px rgba(244, 196, 48, 0.6);
+        }
+
+        /* Презентабельная кнопка для открытия слота */
+        .slot-open-btn {
+            background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(20,15,5,0.95) 100%);
+            color: #F4C430;
+            border: 2px solid #F4C430;
+            padding: 16px 40px;
+            font-family: 'Russo One', sans-serif;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            border-radius: 60px;
+            margin-top: 15px;
+            box-shadow: 0 0 20px rgba(244,196,48,0.3), inset 0 0 10px rgba(244,196,48,0.1);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            backdrop-filter: blur(4px);
+        }
+
+        .slot-open-btn:hover {
+            background: linear-gradient(135deg, #F4C430 0%, #e6b800 100%);
+            color: #050505;
+            box-shadow: 0 0 40px rgba(244,196,48,0.8);
+            transform: scale(1.02);
+            border-color: #fff;
+        }
+
+        .slot-open-btn span:first-child {
+            font-size: 1.8rem;
+        }
+
+        /* Модалка для автора */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(5, 5, 5, 0.98);
+            z-index: 1000;
+            justify-content: center;
+            align-items: flex-start;
+            overflow-y: auto;
+            padding: 80px 20px 40px;
+            box-sizing: border-box;
+        }
+
+        .modal-content {
+            background-color: #111;
+            border: 2px solid #F4C430;
+            padding: 30px;
+            max-width: 700px;
+            width: 100%;
+            text-align: left;
+            box-shadow: 0 0 40px rgba(244, 196, 48, 0.3);
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        /* Модалка для слотов */
+        .slot-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(5, 5, 5, 0.98);
+            z-index: 1001;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .slot-modal-content {
+            background-color: #111;
+            border: 2px solid #F4C430;
+            padding: 30px;
+            max-width: 550px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 0 40px rgba(244, 196, 48, 0.3);
+            position: relative;
+            border-radius: 15px;
+        }
+
+        .slot-modal-content h2 {
+            margin: 0 0 15px 0;
+            color: #F4C430;
+            font-size: 1.8rem;
+        }
+
+        .slot-machine {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .reel {
+            width: 90px;
+            height: 90px;
+            background: #0a0a0a;
+            border: 3px solid #F4C430;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            transition: all 0.1s ease;
+            box-shadow: 0 0 15px rgba(244, 196, 48, 0.3);
+        }
+
+        .spin-btn {
+            background: transparent;
+            color: #F4C430;
+            border: 2px solid #F4C430;
+            padding: 12px 35px;
+            font-family: 'Russo One', sans-serif;
+            font-size: 1.3rem;
+            cursor: pointer;
+            margin: 15px 0;
+            border-radius: 40px;
+            transition: all 0.2s;
+            letter-spacing: 2px;
+        }
+
+        .spin-btn:hover {
+            background: #F4C430;
+            color: #050505;
+            box-shadow: 0 0 20px rgba(244, 196, 48, 0.6);
+            transform: scale(1.02);
+        }
+
+        .slot-message {
+            font-size: 1rem;
+            color: #F4C430;
+            margin: 15px 0;
+            min-height: 50px;
+            font-family: 'Russo One', sans-serif;
+        }
+
+        .clear-cookies-btn {
+            background: transparent;
+            color: #F4C430;
+            border: 1px solid #F4C430;
+            padding: 8px 20px;
+            font-family: 'Russo One', sans-serif;
+            font-size: 0.8rem;
+            cursor: pointer;
+            margin-top: 15px;
+            border-radius: 20px;
+            transition: all 0.2s;
+        }
+
+        .clear-cookies-btn:hover {
+            background: #F4C430;
+            color: #050505;
+        }
+
+        /* Кнопка закрытия — только крестик */
+        .close-slot-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: transparent;
+            color: #F4C430;
+            border: 2px solid #F4C430;
+            width: 36px;
+            height: 36px;
+            font-family: 'Russo One', sans-serif;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            line-height: 1;
+        }
+
+        .close-slot-btn:hover {
+            background: #F4C430;
+            color: #050505;
+            transform: rotate(90deg);
+        }
+
+        .last-result {
+            margin-top: 10px;
+            font-size: 0.75rem;
+            opacity: 0.7;
+        }
+
+        .modal-content h1 {
+            font-size: 2.5rem;
+            margin: 0 0 20px 0;
+            text-align: center;
+            color: #F4C430;
+            text-shadow: 0 0 10px rgba(244, 196, 48, 0.3);
+        }
+
+        .modal-content h2 {
+            font-size: 1.5rem;
+            margin: 25px 0 15px 0;
+            color: #F4C430;
+        }
+
+        .modal-content h3 {
+            font-size: 1.2rem;
+            margin: 20px 0 10px 0;
+            color: #F4C430;
+            opacity: 0.9;
+        }
+
+        .modal-content p,
+        .modal-content .bio-text {
+            font-family: Arial, sans-serif;
+            color: #eee;
+            line-height: 1.7;
+            margin: 10px 0;
+            font-size: 1.05rem;
+        }
+
+        .modal-content img {
+            display: block;
+            margin: 20px auto;
+            border: 2px solid #F4C430;
+            border-radius: 10px;
+            max-width: 100%;
+            height: auto;
+            box-shadow: 0 0 20px rgba(244, 196, 48, 0.2);
+        }
+
+        .modal-content hr {
+            border: none;
+            border-top: 1px solid #F4C430;
+            opacity: 0.3;
+            margin: 25px 0;
+        }
+
+        .modal-content a {
+            text-decoration: none;
+            transition: opacity 0.3s;
+            display: inline-block;
+            margin: 5px 0;
+        }
+        
+        .modal-content a:hover {
+            opacity: 0.7;
+        }
+
+        .modal-content .email-link {
+            color: #F4C430;
+            border-bottom: 1px dashed #F4C430;
+        }
+        
+        .modal-content .telegram-link {
+            color: #24A1DE;
+            font-weight: bold;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: transparent;
+            color: #F4C430;
+            border: 2px solid #F4C430;
+            padding: 8px 20px;
+            font-family: 'Russo One', sans-serif;
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: #F4C430;
+            color: #050505;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 30px 15px 15px;
+                gap: 20px;
+            }
+            .top-left, .top-right {
+                position: static;
+            }
+            .main-title {
+                font-size: 16vw;
+            }
+            .author-btn {
+                padding: 12px 25px;
+                font-size: 0.9rem;
+            }
+            .search-input {
+                font-size: 0.9rem;
+                padding: 10px 15px;
+            }
+            .modal-overlay {
+                padding: 60px 15px 30px;
+            }
+            .modal-content {
+                padding: 25px 20px;
+            }
+            .modal-content h1 {
+                font-size: 2rem;
+            }
+            .modal-content h2 {
+                font-size: 1.3rem;
+            }
+            .reel {
+                width: 70px;
+                height: 70px;
+                font-size: 2.5rem;
+            }
+            .slot-open-btn {
+                padding: 12px 25px;
+                font-size: 1.1rem;
+                gap: 8px;
+            }
+            .slot-open-btn span:first-child {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    
+    <div class="header">
+        
+        <div class="top-left">JACKPOT</div>
+        
+        <h1 class="main-title">obman.bet</h1>
+        
+        <div class="search-container">
+            <input 
+                type="text" 
+                class="search-input" 
+                placeholder="Поиск по сайту..." 
+                aria-label="Поиск"
+            >
+        </div>
+
+        <button class="slot-open-btn" id="openSlotsBtn">
+            <span>🎰</span> СЛОТИКИ <span>💎</span>
+        </button>
+
+        <div class="top-right">
+            <button class="author-btn" id="openModalBtn">Об авторе</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="authorModal">
+        <div class="modal-content">
+            <button class="close-btn" id="closeModalBtn">✕ Закрыть</button>
+            
+            <h1><b>Мой сайт</b></h1>
+            <hr>
+            
+            <div class="images-container" style="
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 40px;
+                margin: 30px 0;
+                flex-wrap: wrap;
+                ">
+            <div class="image-block" style="text-align: center;">
+                <h2 style="font-size: 1.2rem; margin-bottom: 10px;"><b>Моё фото</b></h2>
+                <img src="headerPhoto.jpg" alt="Моё фото" style="
+                    width: 100%;
+                    max-width: 350px;
+                    height: auto;
+                    border-radius: 10px; 
+                    border: 2px solid #F4C430;
+                    box-shadow: 0 0 20px rgba(244, 196, 48, 0.2);
+                ">
+            </div>
+            
+            <div class="image-block" style="text-align: center;">
+                <h2 style="font-size: 1.2rem; margin-bottom: 10px;"><b>Логотип</b></h2>
+                <img src="Logo.jpg" alt="Логотип казино" style="
+                    width: 100%;
+                    max-width: 264px;
+                    height: auto;
+                    border-radius: 10px; 
+                    border: 2px solid #F4C430;
+                    box-shadow: 0 0 20px rgba(244, 196, 48, 0.2);
+                    object-fit: contain;
+                ">
+            </div>
+            </div>
+            
+            <hr>
+            
+            <h2><b>Немного обо мне:</b></h2>
+            <p class="bio-text">Меня зовут Даниил Александрович Ходжа-Ипа, я являюсь студентом 1 курса ВГУ. Учусь на факультете компьютерных наук, где изучаю программирование. На данный момент изучаю Java, C, JS.</p>
+            
+            <p class="bio-text">Родился на территории ПМР, которая считается частью Молдовы. Моя семья состоит из 5 человек. Учился в гуманитарно-математической гимназии.</p> 
+            
+            <p class="bio-text">С детства мне неплохо давались точные дисциплины, поэтому я решил связать свою будущую жизнь с ними. В Воронеж я приехал зарабатывать деньги, путем обмана людей в казино.</p>
+            
+            <hr>
+            
+            <h2><b>О проекте</b></h2>
+            <p>Этот сайт создан специально для вас.
+Я забочусь о вашем заработке больше, чем вы сами. В отличие от других платформ, я гарантирую стабильность, мгновенные выплаты и полную безопасность ваших средств.
+Ваш успех — мой приоритет.
+</p>
+            
+            <hr>
+            
+            <h2><b>Связаться со мной</b></h2>
+            <h3>Почта:</h3>
+            <p><a href="mailto:daniilhodzdaipa2@gmail.com" class="email-link">daniilhodzdaipa2@gmail.com</a></p>
+            
+            <h3>Telegram:</h3>
+            <p>
+                <a href="https://t.me/danhdip" target="_blank" class="telegram-link">Мой Telegram</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="slot-modal-overlay" id="slotModal">
+        <div class="slot-modal-content">
+            <button class="close-slot-btn" id="closeSlotsBtn">✕</button>
+            <h2>🎰 ИГРОВОЙ АВТОМАТ 🎰</h2>
+            
+            <div class="slot-machine">
+                <div class="reel" id="reel1">🍒</div>
+                <div class="reel" id="reel2">🍒</div>
+                <div class="reel" id="reel3">🍒</div>
+            </div>
+            
+            <button class="spin-btn" id="spinBtn">SPIN</button>
+            
+            <div class="slot-message" id="slotMessage">Нажми SPIN, чтобы начать</div>
+            
+            <div class="last-result" id="lastResultArea"></div>
+            
+            <button class="clear-cookies-btn" id="clearCookiesBtn">🗑️ Очистить сохранённые данные</button>
+        </div>
+    </div>
+
+    <script>
+       
+        const modal = document.getElementById('authorModal');
+        const openBtn = document.getElementById('openModalBtn');
+        const closeBtn = document.getElementById('closeModalBtn');
+
+        openBtn.addEventListener('click', () => {
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.style.display === 'flex') {
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        });
+
+        const searchInput = document.querySelector('.search-input');
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const query = searchInput.value.trim();
+                if (query) {
+                    console.log('Поиск:', query);
+                    alert(`Поиск: "${query}"\n(Функция в разработке)`);
+                }
+            }
+        });
+
+        const slotModal = document.getElementById('slotModal');
+        const openSlotsBtn = document.getElementById('openSlotsBtn');
+        const closeSlotsBtn = document.getElementById('closeSlotsBtn');
+        const spinBtn = document.getElementById('spinBtn');
+        const reel1 = document.getElementById('reel1');
+        const reel2 = document.getElementById('reel2');
+        const reel3 = document.getElementById('reel3');
+        const messageDiv = document.getElementById('slotMessage');
+        const clearCookiesBtn = document.getElementById('clearCookiesBtn');
+        const lastResultArea = document.getElementById('lastResultArea');
+
+        const symbols = ['🍒', '🍋', '🍊', '💎', '7️⃣', '⭐', '🎰'];
+
+        function getRandomSymbol() {
+            return symbols[Math.floor(Math.random() * symbols.length)];
+        }
+
+        function animateReel(reelElement, finalSymbol, duration = 250) {
+            let startTime = null;
+            function step(timestamp) {
+                if (!startTime) startTime = timestamp;
+                const elapsed = timestamp - startTime;
+                const progress = Math.min(1, elapsed / duration);
+                if (progress < 1) {
+                    const randomSym = getRandomSymbol();
+                    reelElement.textContent = randomSym;
+                    requestAnimationFrame(step);
+                } else {
+                    reelElement.textContent = finalSymbol;
+                }
+            }
+            requestAnimationFrame(step);
+        }
+
+        function saveResultToCookies(result1, result2, result3, resultMessage) {
+            const resultData = {
+                symbols: [result1, result2, result3],
+                message: resultMessage,
+                timestamp: new Date().toLocaleString()
+            };
+            const expiryDate = new Date();
+            expiryDate.setDate(expiryDate.getDate() + 30);
+            document.cookie = `lastSlotResult=${encodeURIComponent(JSON.stringify(resultData))}; expires=${expiryDate.toUTCString()}; path=/`;
+            document.cookie = `lastSlotVisit=${new Date().toLocaleString()}; expires=${expiryDate.toUTCString()}; path=/`;
+        }
+
+        function loadLastResultFromCookies() {
+            const cookies = document.cookie.split('; ');
+            for (let cookie of cookies) {
+                if (cookie.startsWith('lastSlotResult=')) {
+                    const value = cookie.split('=')[1];
+                    try {
+                        return JSON.parse(decodeURIComponent(value));
+                    } catch(e) {
+                        return null;
+                    }
+                }
+            }
+            return null;
+        }
+
+        function restoreLastResult() {
+            const lastResult = loadLastResultFromCookies();
+            if (lastResult && lastResult.symbols && lastResult.message) {
+                reel1.textContent = lastResult.symbols[0];
+                reel2.textContent = lastResult.symbols[1];
+                reel3.textContent = lastResult.symbols[2];
+                messageDiv.innerHTML = lastResult.message;
+                lastResultArea.innerHTML = `📜 Последний спин: ${lastResult.symbols.join(' ')} — ${lastResult.message.substring(0, 40)}... (${lastResult.timestamp || 'недавно'})`;
+            } else {
+                lastResultArea.innerHTML = '❄️ Нет сохранённых результатов. Сделайте первый спин!';
+            }
+        }
+
+        function clearSlotCookies() {
+            document.cookie = 'lastSlotResult=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            document.cookie = 'lastSlotVisit=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            lastResultArea.innerHTML = '🧹 Данные очищены! Сделайте новый спин.';
+            messageDiv.innerHTML = 'Нажми SPIN, чтобы начать';
+            reel1.textContent = '🍒';
+            reel2.textContent = '🍒';
+            reel3.textContent = '🍒';
+            alert('Cookies очищены! Сохранённый результат удалён.');
+        }
+
+        function spin() {
+            spinBtn.disabled = true;
+            spinBtn.style.opacity = '0.6';
+            messageDiv.textContent = '🎲 КРУЧУ-ВЕРЧУ... 🎲';
+            
+            const result1 = getRandomSymbol();
+            const result2 = getRandomSymbol();
+            const result3 = getRandomSymbol();
+            
+            animateReel(reel1, result1, 300);
+            setTimeout(() => animateReel(reel2, result2, 300), 100);
+            setTimeout(() => animateReel(reel3, result3, 300), 200);
+            
+            setTimeout(() => {
+                spinBtn.disabled = false;
+                spinBtn.style.opacity = '1';
+                
+                let resultMessage = '';
+                if (result1 === result2 && result2 === result3) {
+                    if (result1 === '7️⃣' || result1 === '💎') {
+                        resultMessage = '🔥🔥 ДЖЕКПОТ! НАДО ПРОДОЛЖАТЬ ДЕПАТЬ! 🔥🔥';
+                    } else {
+                        resultMessage = `🎉 ПОБЕДА! три ${result1} — СЛИШКОМ ХОРОШ! 🎉`;
+                    }
+                } else if (result1 === result2 || result2 === result3 || result1 === result3) {
+                    resultMessage = `👍 ПОЧТИ! два одинаковых — нужно продолжать депать 👍`;
+                } else {
+                    resultMessage = `😭 МИМО... попробуй ещё. Деп, додеп и еще ласт додеп 😭`;
+                }
+                
+                messageDiv.innerHTML = resultMessage;
+                
+                saveResultToCookies(result1, result2, result3, resultMessage);
+                
+                restoreLastResult();
+            }, 450);
+        }
+
+        openSlotsBtn.addEventListener('click', () => {
+            slotModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            restoreLastResult();
+        });
+
+        closeSlotsBtn.addEventListener('click', () => {
+            slotModal.style.display = 'none';
+            document.body.style.overflow = '';
+        });
+
+        slotModal.addEventListener('click', (e) => {
+            if (e.target === slotModal) {
+                slotModal.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && slotModal.style.display === 'flex') {
+                slotModal.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        });
+
+        spinBtn.addEventListener('click', spin);
+        clearCookiesBtn.addEventListener('click', clearSlotCookies);
+    </script>
+
+</body>
+</html>
