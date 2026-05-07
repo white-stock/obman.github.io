@@ -1,5 +1,4 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -23,7 +22,6 @@
             flex-direction: column;
         }
 
-        
         .header {
             display: flex;
             flex-direction: column;
@@ -36,11 +34,16 @@
             gap: 15px;
         }
 
-        
         .top-left {
             position: absolute;
             left: 40px;
             top: 40px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .jackpot-text {
             font-size: 1.2rem;
             letter-spacing: 3px;
             text-transform: uppercase;
@@ -48,7 +51,53 @@
             text-shadow: 0 0 8px rgba(244, 196, 48, 0.4);
         }
 
-        
+        .gold-coin-btn {
+            background: radial-gradient(circle at 30% 35%, #ffd700, #b8860b);
+            border: 2px solid #ffd700;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-family: 'Russo One', sans-serif;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2c1a00;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            position: relative;
+        }
+
+        .gold-coin-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+            border-color: #fff;
+        }
+
+        .gold-coin-btn:active {
+            transform: scale(0.95);
+        }
+
+        .coin-count {
+            position: absolute;
+            bottom: -8px;
+            right: -8px;
+            background: #050505;
+            border: 1px solid #F4C430;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Russo One', sans-serif;
+            color: #F4C430;
+        }
+
         .main-title {
             font-size: 10vw;
             font-weight: 900;
@@ -62,7 +111,6 @@
             text-align: center;
         }
 
-        
         .search-container {
             width: 100%;
             max-width: 500px;
@@ -86,7 +134,6 @@
             box-shadow: 0 0 10px rgba(244, 196, 48, 0.1);
         }
 
-        
         .search-input::placeholder {
             color: #F4C430;
             opacity: 0.5;
@@ -99,7 +146,6 @@
                 0 0 30px rgba(244, 196, 48, 0.2);
         }
 
-        
         .top-right {
             position: absolute;
             right: 40px;
@@ -127,7 +173,6 @@
             box-shadow: 0 0 25px rgba(244, 196, 48, 0.6);
         }
 
-        /* Презентабельная кнопка для открытия слота */
         .slot-open-btn {
             background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(20,15,5,0.95) 100%);
             color: #F4C430;
@@ -160,7 +205,6 @@
             font-size: 1.8rem;
         }
 
-        /* Модалка для автора */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -189,7 +233,6 @@
             margin-bottom: 40px;
         }
 
-        /* Модалка для слотов */
         .slot-modal-overlay {
             display: none;
             position: fixed;
@@ -244,6 +287,69 @@
             box-shadow: 0 0 15px rgba(244, 196, 48, 0.3);
         }
 
+        .bet-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(244, 196, 48, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(244, 196, 48, 0.2);
+        }
+
+        .bet-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            letter-spacing: 1px;
+        }
+
+        .bet-selector {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .bet-btn {
+            background: transparent;
+            color: #F4C430;
+            border: 2px solid #F4C430;
+            padding: 8px 16px;
+            font-family: 'Russo One', sans-serif;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border-radius: 25px;
+            transition: all 0.2s;
+            min-width: 50px;
+        }
+
+        .bet-btn:hover, .bet-btn.active {
+            background: #F4C430;
+            color: #050505;
+            box-shadow: 0 0 15px rgba(244, 196, 48, 0.5);
+        }
+
+        .bet-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .current-bet-display {
+            font-size: 1.1rem;
+            color: #ffd700;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .current-bet-display::before {
+            content: "🪙";
+        }
+
         .spin-btn {
             background: transparent;
             color: #F4C430;
@@ -258,11 +364,17 @@
             letter-spacing: 2px;
         }
 
-        .spin-btn:hover {
+        .spin-btn:hover:not(:disabled) {
             background: #F4C430;
             color: #050505;
             box-shadow: 0 0 20px rgba(244, 196, 48, 0.6);
             transform: scale(1.02);
+        }
+
+        .spin-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
         }
 
         .slot-message {
@@ -291,7 +403,6 @@
             color: #050505;
         }
 
-        /* Кнопка закрытия — только крестик */
         .close-slot-btn {
             position: absolute;
             top: 15px;
@@ -322,6 +433,115 @@
             margin-top: 10px;
             font-size: 0.75rem;
             opacity: 0.7;
+        }
+
+        .currency-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(5, 5, 5, 0.98);
+            z-index: 1002;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .currency-modal-content {
+            background-color: #111;
+            border: 2px solid #F4C430;
+            padding: 40px 30px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 0 40px rgba(244, 196, 48, 0.3);
+            position: relative;
+            border-radius: 20px;
+        }
+
+        .currency-modal-content h2 {
+            margin: 0 0 10px 0;
+            color: #F4C430;
+            font-size: 1.8rem;
+        }
+
+        .currency-display {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #ffd700;
+            margin: 20px 0;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .big-coin-icon {
+            font-size: 3.5rem;
+            animation: float 2s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .press-round-btn {
+            background: radial-gradient(circle at 35% 30%, #ffd700, #b8860b);
+            border: 4px solid #fff;
+            border-radius: 50%;
+            width: 180px;
+            height: 180px;
+            font-family: 'Russo One', sans-serif;
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: #2c1a00;
+            cursor: pointer;
+            transition: all 0.08s linear;
+            text-shadow: 0 2px 0 rgba(255,255,255,0.5);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+            letter-spacing: 4px;
+            margin: 15px auto;
+            display: block;
+        }
+
+        .press-round-btn:active {
+            transform: scale(0.94);
+        }
+
+        .press-round-btn:hover {
+            background: radial-gradient(circle at 35% 30%, #ffe44d, #daa520);
+            transform: scale(1.02);
+        }
+
+        .close-currency-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: transparent;
+            color: #F4C430;
+            border: 2px solid #F4C430;
+            width: 36px;
+            height: 36px;
+            font-family: 'Russo One', sans-serif;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            line-height: 1;
+        }
+
+        .close-currency-btn:hover {
+            background: #F4C430;
+            color: #050505;
+            transform: rotate(90deg);
         }
 
         .modal-content h1 {
@@ -456,25 +676,37 @@
             .slot-open-btn span:first-child {
                 font-size: 1.4rem;
             }
+            .press-round-btn {
+                width: 130px;
+                height: 130px;
+                font-size: 1.6rem;
+            }
+            .bet-selector {
+                gap: 5px;
+            }
+            .bet-btn {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+                min-width: 40px;
+            }
         }
     </style>
 </head>
 <body>
 
-    
     <div class="header">
-        
-        <div class="top-left">JACKPOT</div>
+        <div class="top-left">
+            <span class="jackpot-text">JACKPOT</span>
+            <button class="gold-coin-btn" id="openCurrencyBtn">
+                <span>🪙</span>
+                <span class="coin-count" id="goldAmount">0</span>
+            </button>
+        </div>
         
         <h1 class="main-title">obman.bet</h1>
         
         <div class="search-container">
-            <input 
-                type="text" 
-                class="search-input" 
-                placeholder="Поиск по сайту..." 
-                aria-label="Поиск"
-            >
+            <input type="text" class="search-input" placeholder="Поиск по сайту..." aria-label="Поиск">
         </div>
 
         <button class="slot-open-btn" id="openSlotsBtn">
@@ -489,78 +721,56 @@
     <div class="modal-overlay" id="authorModal">
         <div class="modal-content">
             <button class="close-btn" id="closeModalBtn">✕ Закрыть</button>
-            
             <h1><b>Мой сайт</b></h1>
             <hr>
-            
-            <div class="images-container" style="
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                gap: 40px;
-                margin: 30px 0;
-                flex-wrap: wrap;
-                ">
-            <div class="image-block" style="text-align: center;">
-                <h2 style="font-size: 1.2rem; margin-bottom: 10px;"><b>Моё фото</b></h2>
-                <img src="headerPhoto.jpg" alt="Моё фото" style="
-                    width: 100%;
-                    max-width: 350px;
-                    height: auto;
-                    border-radius: 10px; 
-                    border: 2px solid #F4C430;
-                    box-shadow: 0 0 20px rgba(244, 196, 48, 0.2);
-                ">
+            <div class="images-container" style="display: flex; justify-content: center; align-items: center; gap: 40px; margin: 30px 0; flex-wrap: wrap;">
+                <div class="image-block" style="text-align: center;">
+                    <h2 style="font-size: 1.2rem; margin-bottom: 10px;"><b>Моё фото</b></h2>
+                    <img src="headerPhoto.jpg" alt="Моё фото" style="width: 100%; max-width: 350px; height: auto; border-radius: 10px; border: 2px solid #F4C430; box-shadow: 0 0 20px rgba(244, 196, 48, 0.2);">
+                </div>
+                <div class="image-block" style="text-align: center;">
+                    <h2 style="font-size: 1.2rem; margin-bottom: 10px;"><b>Логотип</b></h2>
+                    <img src="Logo.jpg" alt="Логотип казино" style="width: 100%; max-width: 264px; height: auto; border-radius: 10px; border: 2px solid #F4C430; box-shadow: 0 0 20px rgba(244, 196, 48, 0.2); object-fit: contain;">
+                </div>
             </div>
-            
-            <div class="image-block" style="text-align: center;">
-                <h2 style="font-size: 1.2rem; margin-bottom: 10px;"><b>Логотип</b></h2>
-                <img src="Logo.jpg" alt="Логотип казино" style="
-                    width: 100%;
-                    max-width: 264px;
-                    height: auto;
-                    border-radius: 10px; 
-                    border: 2px solid #F4C430;
-                    box-shadow: 0 0 20px rgba(244, 196, 48, 0.2);
-                    object-fit: contain;
-                ">
-            </div>
-            </div>
-            
             <hr>
-            
             <h2><b>Немного обо мне:</b></h2>
             <p class="bio-text">Меня зовут Даниил Александрович Ходжа-Ипа, я являюсь студентом 1 курса ВГУ. Учусь на факультете компьютерных наук, где изучаю программирование. На данный момент изучаю Java, C, JS.</p>
-            
             <p class="bio-text">Родился на территории ПМР, которая считается частью Молдовы. Моя семья состоит из 5 человек. Учился в гуманитарно-математической гимназии.</p> 
-            
             <p class="bio-text">С детства мне неплохо давались точные дисциплины, поэтому я решил связать свою будущую жизнь с ними. В Воронеж я приехал зарабатывать деньги, путем обмана людей в казино.</p>
-            
             <hr>
-            
             <h2><b>О проекте</b></h2>
-            <p>Этот сайт создан специально для вас.
-Я забочусь о вашем заработке больше, чем вы сами. В отличие от других платформ, я гарантирую стабильность, мгновенные выплаты и полную безопасность ваших средств.
-Ваш успех — мой приоритет.
-</p>
-            
+            <p>Этот сайт создан специально для вас. Я забочусь о вашем заработке больше, чем вы сами. В отличие от других платформ, я гарантирую стабильность, мгновенные выплаты и полную безопасность ваших средств. Ваш успех — мой приоритет.</p>
             <hr>
-            
             <h2><b>Связаться со мной</b></h2>
             <h3>Почта:</h3>
             <p><a href="mailto:daniilhodzdaipa2@gmail.com" class="email-link">daniilhodzdaipa2@gmail.com</a></p>
-            
             <h3>Telegram:</h3>
-            <p>
-                <a href="https://t.me/danhdip" target="_blank" class="telegram-link">Мой Telegram</a>
-            </p>
+            <p><a href="https://t.me/danhdip" target="_blank" class="telegram-link">Мой Telegram</a></p>
         </div>
     </div>
 
+   
     <div class="slot-modal-overlay" id="slotModal">
         <div class="slot-modal-content">
             <button class="close-slot-btn" id="closeSlotsBtn">✕</button>
             <h2>🎰 ИГРОВОЙ АВТОМАТ 🎰</h2>
+            
+            
+            <div class="bet-controls">
+                <span class="bet-label">ВЫБЕРИТЕ СТАВКУ:</span>
+                <div class="bet-selector">
+                    <button class="bet-btn active" data-bet="1">1</button>
+                    <button class="bet-btn" data-bet="3">3</button>
+                    <button class="bet-btn" data-bet="5">5</button>
+                    <button class="bet-btn" data-bet="10">10</button>
+                    <button class="bet-btn" data-bet="25">25</button>
+                    <button class="bet-btn" data-bet="50">50</button>
+                </div>
+                <div class="current-bet-display">
+                    Ставка: <span id="currentBet">1</span> 🪙
+                </div>
+            </div>
             
             <div class="slot-machine">
                 <div class="reel" id="reel1">🍒</div>
@@ -578,8 +788,130 @@
         </div>
     </div>
 
+
+    <div class="currency-modal-overlay" id="currencyModal">
+        <div class="currency-modal-content">
+            <button class="close-currency-btn" id="closeCurrencyBtn">✕</button>
+            <h2>💰 ТВОЁ ЗОЛОТО 💰</h2>
+            <div class="currency-display">
+                <span class="big-coin-icon">🪙</span>
+                <span id="modalGoldAmount">0</span>
+            </div>
+            <button class="press-round-btn" id="pressBtn">ЖМИ</button>
+            <div style="margin-top: 20px; font-size: 0.8rem; opacity: 0.6;">
+                
+            </div>
+        </div>
+    </div>
+
     <script>
-       
+
+        const GOLD_KEY = 'obman_gold';
+        
+        function getGold() {
+            let gold = localStorage.getItem(GOLD_KEY);
+            if (gold === null) return 0;
+            return parseInt(gold);
+        }
+        
+        function setGold(amount) {
+            localStorage.setItem(GOLD_KEY, amount);
+            document.getElementById('goldAmount').innerText = amount;
+            document.getElementById('modalGoldAmount').innerText = amount;
+        }
+        
+        function addGold(amount = 1) {
+            let current = getGold();
+            setGold(current + amount);
+            let coinBtn = document.querySelector('.gold-coin-btn');
+            if (coinBtn) {
+                coinBtn.style.transform = 'scale(1.2)';
+                setTimeout(() => { coinBtn.style.transform = 'scale(1)'; }, 150);
+            }
+
+            let modalSpan = document.getElementById('modalGoldAmount');
+            if (modalSpan) {
+                modalSpan.style.transform = 'scale(1.3)';
+                setTimeout(() => { modalSpan.style.transform = 'scale(1)'; }, 150);
+            }
+
+            let pressButton = document.getElementById('pressBtn');
+            if (pressButton) {
+                pressButton.style.transform = 'scale(0.94)';
+                setTimeout(() => { pressButton.style.transform = 'scale(1)'; }, 100);
+            }
+        }
+
+        function spendGold(amount) {
+            let current = getGold();
+            if (current >= amount) {
+                setGold(current - amount);
+                return true;
+            }
+            return false;
+        }
+        
+        setGold(getGold());
+
+        const currencyModal = document.getElementById('currencyModal');
+        const openCurrencyBtn = document.getElementById('openCurrencyBtn');
+        const closeCurrencyBtn = document.getElementById('closeCurrencyBtn');
+        const pressBtn = document.getElementById('pressBtn');
+        
+        openCurrencyBtn.addEventListener('click', () => {
+            setGold(getGold());
+            currencyModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeCurrencyBtn.addEventListener('click', () => {
+            currencyModal.style.display = 'none';
+            document.body.style.overflow = '';
+        });
+        
+        currencyModal.addEventListener('click', (e) => {
+            if (e.target === currencyModal) {
+                currencyModal.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        });
+        
+        pressBtn.addEventListener('click', () => {
+            addGold(1);
+        });
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && currencyModal.style.display === 'flex') {
+                currencyModal.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        });
+        
+
+        let currentBet = 1;
+        const betButtons = document.querySelectorAll('.bet-btn');
+        const currentBetDisplay = document.getElementById('currentBet');
+        const spinBtn = document.getElementById('spinBtn');
+        
+        betButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                betButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentBet = parseInt(btn.dataset.bet);
+                currentBetDisplay.innerText = currentBet;
+                updateBetButtonsAvailability();
+            });
+        });
+
+        function updateBetButtonsAvailability() {
+            const gold = getGold();
+            betButtons.forEach(btn => {
+                const betValue = parseInt(btn.dataset.bet);
+                btn.disabled = betValue > gold;
+            });
+        }
+        
+        
         const modal = document.getElementById('authorModal');
         const openBtn = document.getElementById('openModalBtn');
         const closeBtn = document.getElementById('closeModalBtn');
@@ -622,7 +954,6 @@
         const slotModal = document.getElementById('slotModal');
         const openSlotsBtn = document.getElementById('openSlotsBtn');
         const closeSlotsBtn = document.getElementById('closeSlotsBtn');
-        const spinBtn = document.getElementById('spinBtn');
         const reel1 = document.getElementById('reel1');
         const reel2 = document.getElementById('reel2');
         const reel3 = document.getElementById('reel3');
@@ -653,10 +984,12 @@
             requestAnimationFrame(step);
         }
 
-        function saveResultToCookies(result1, result2, result3, resultMessage) {
+        function saveResultToCookies(result1, result2, result3, resultMessage, bet, win) {
             const resultData = {
                 symbols: [result1, result2, result3],
                 message: resultMessage,
+                bet: bet,
+                win: win,
                 timestamp: new Date().toLocaleString()
             };
             const expiryDate = new Date();
@@ -687,7 +1020,15 @@
                 reel2.textContent = lastResult.symbols[1];
                 reel3.textContent = lastResult.symbols[2];
                 messageDiv.innerHTML = lastResult.message;
-                lastResultArea.innerHTML = `📜 Последний спин: ${lastResult.symbols.join(' ')} — ${lastResult.message.substring(0, 40)}... (${lastResult.timestamp || 'недавно'})`;
+                let summary = `📜 Последний спин: ${lastResult.symbols.join(' ')} — ${lastResult.message.substring(0, 30)}...`;
+                if (lastResult.bet !== undefined) {
+                    summary += ` | Ставка: ${lastResult.bet}🪙`;
+                    if (lastResult.win) {
+                        summary += ` | Выигрыш: ${lastResult.win * 5}🪙`;
+                    }
+                }
+                summary += ` (${lastResult.timestamp || 'недавно'})`;
+                lastResultArea.innerHTML = summary;
             } else {
                 lastResultArea.innerHTML = '❄️ Нет сохранённых результатов. Сделайте первый спин!';
             }
@@ -705,9 +1046,22 @@
         }
 
         function spin() {
+
+            if (getGold() < currentBet) {
+                messageDiv.innerHTML = `😭 Недостаточно золота! Нужно минимум ${currentBet} 🪙`;
+                messageDiv.style.color = '#ff6b6b';
+                setTimeout(() => { messageDiv.style.color = '#F4C430'; }, 2000);
+                return;
+            }
+            
+
+            spendGold(currentBet);
+            updateBetButtonsAvailability(); 
+            
             spinBtn.disabled = true;
             spinBtn.style.opacity = '0.6';
-            messageDiv.textContent = '🎲 КРУЧУ-ВЕРЧУ... 🎲';
+            messageDiv.textContent = `🎲 Крутим за ${currentBet}🪙...`;
+            messageDiv.style.color = '#F4C430';
             
             const result1 = getRandomSymbol();
             const result2 = getRandomSymbol();
@@ -722,27 +1076,39 @@
                 spinBtn.style.opacity = '1';
                 
                 let resultMessage = '';
+                let winAmount = 0;
+                
                 if (result1 === result2 && result2 === result3) {
+                    winAmount = currentBet * 5; 
+                    addGold(winAmount); 
+                    
                     if (result1 === '7️⃣' || result1 === '💎') {
-                        resultMessage = '🔥🔥 ДЖЕКПОТ! НАДО ПРОДОЛЖАТЬ ДЕПАТЬ! 🔥🔥';
+                        resultMessage = `🔥🔥 ДЖЕКПОТ! +${winAmount}🪙! 🔥🔥`;
                     } else {
-                        resultMessage = `🎉 ПОБЕДА! три ${result1} — СЛИШКОМ ХОРОШ! 🎉`;
+                        resultMessage = `ПОБЕДА! +${winAmount}🪙 за три ${result1}!`;
                     }
+                    messageDiv.style.color = '#4ade80';
                 } else if (result1 === result2 || result2 === result3 || result1 === result3) {
-                    resultMessage = `👍 ПОЧТИ! два одинаковых — нужно продолжать депать 👍`;
+                    resultMessage = `👍 Почти! Два одинаковых — попробуй ещё 👍`;
+                    messageDiv.style.color = '#F4C430';
                 } else {
-                    resultMessage = `😭 МИМО... попробуй ещё. Деп, додеп и еще ласт додеп 😭`;
+                    resultMessage = `😭 Мимо... Потеряно ${currentBet}🪙. Попробуй ещё! 😭`;
+                    messageDiv.style.color = '#fbbf24';
                 }
                 
                 messageDiv.innerHTML = resultMessage;
                 
-                saveResultToCookies(result1, result2, result3, resultMessage);
+                saveResultToCookies(result1, result2, result3, resultMessage, currentBet, winAmount);
+                
+                setGold(getGold());
+                updateBetButtonsAvailability();
                 
                 restoreLastResult();
             }, 450);
         }
 
         openSlotsBtn.addEventListener('click', () => {
+            updateBetButtonsAvailability();
             slotModal.style.display = 'flex';
             document.body.style.overflow = 'hidden';
             restoreLastResult();
@@ -769,6 +1135,17 @@
 
         spinBtn.addEventListener('click', spin);
         clearCookiesBtn.addEventListener('click', clearSlotCookies);
+        
+        const originalSetItem = localStorage.setItem;
+        localStorage.setItem = function(key, value) {
+            if (key === GOLD_KEY) {
+                
+                if (slotModal.style.display === 'flex') {
+                    updateBetButtonsAvailability();
+                }
+            }
+            originalSetItem.apply(this, arguments);
+        };
     </script>
 
 </body>
